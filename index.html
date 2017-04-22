@@ -7,12 +7,10 @@
 <link rel="shortcut icon" href="favicon.ico">
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
-
-<!-- jQuery Plugin -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.1/jquery.datetimepicker.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.1/jquery.datetimepicker.min.js"></script>
-
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,9 +18,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/js/flat-ui.min.js"></script>
 
 <!-- mine -->
-<script src="./js/resource.js"></script>
-<script src="./js/index.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/index.css">
+<!--<script src="./js/resource.js"></script>-->
+<script src="./js/index.js"></script>
 
 
 </head>
@@ -79,11 +77,11 @@
 <div id="question">
   <div id="question_start" class="center">
     いちばん近い答えを選ぶ、５択クイズ<br>
-    <button id="start" class="btn btn-success">はじめる</button>
+    <button id="start_game" class="btn btn-success">はじめる</button>
   </div>
   <div id="question_body">
-    <span id="question_text"></span>
-    <span id="question_plus"></span>
+    <div id="question_text"></div>
+    <div id="question_plus"></div>
   </div>  
 </div>
 

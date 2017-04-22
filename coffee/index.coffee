@@ -7,12 +7,13 @@ window.refreshTimer = null
 window.audios = {}
 
 $().ready ->
-  $('#start').on 'click', startGame
+  $('#start_game').on 'click', ->
+    startGame()
 
   $('.alt').on 'click', ->
     answer Number $(@).data('answer')
 
-  initAudio()
+  #initAudio()
 
 startGame = ->
   $('#question_start').addClass 'no_display' unless $('#question_start').hasClass 'no_display'
@@ -39,10 +40,10 @@ answer = (answerId)->
   return if window.currentQuestion is null
 
   if answerId is window.currentQuestion.answer
-    play 'correct'
+    playSound 'correct'
     alert '正解'
   else
-    play 'wrong'
+    playSound 'wrong'
     alert '不正解'
   startQuestion()
 
@@ -69,18 +70,19 @@ startTimer = (ms = 1000)->
 
 onResize = ->
   if window.currentQuestion isnt null
-    window.currentQuestion.fontSize = 0.8 * Utl.getFillFontSize $('#question_body'), window.currentQuestion.question
+    window.currentQuestion.fontSize = 0.8 * Utl.getFillFontSize $('#question_text'), window.currentQuestion.question
 
 initAudio = ->
   for name, body of window.RESOURCES.wav
     window.audios[name] = []
     for index in [0...5]
-      window.audios[name].push new Audio(body)
+      window.audios[name].push(new Audio(body))
+  true
 
-play = (resource)->
+playSound = (resource)->
   while window.audios[resource].length > 0
     aud = window.audios[resource].shift()
-    window.audios[resource].push new Audio(window.RESOURCES.wav[resource]) 
+    window.audios[resource].push(new Audio(window.RESOURCES.wav[resource]))
     if aud.readyState is 4
       aud.play()
-      return
+
