@@ -13,7 +13,7 @@ $().ready ->
   $('.alt').on 'click', ->
     answer Number $(@).data('answer')
 
-  #initAudio()
+  initAudio()
 
 startGame = ->
   $('#question_start').addClass 'no_display' unless $('#question_start').hasClass 'no_display'
@@ -29,8 +29,7 @@ startQuestion = ->
   q = window.questions.pop()
 
   q.started = +(new Date())
-  q.fontSize = 0.8 * Utl.getFillFontSize $('#question_text'), q.question
-
+  
   window.currentQuestion = q
   window.questionCount++
   startTimer 100
@@ -41,10 +40,10 @@ answer = (answerId)->
 
   if answerId is window.currentQuestion.answer
     playSound 'correct'
-    alert '正解'
+    #alert '正解'
   else
     playSound 'wrong'
-    alert '不正解'
+    #alert '不正解'
   startQuestion()
 
 refresh = ->
@@ -57,7 +56,7 @@ refresh = ->
     $('#question_text').html('')
     $('#question_plus').html('')
   else
-    $('#question_text').html(window.currentQuestion.question).css('font-size', ''+window.currentQuestion.fontSize+'px')
+    $('#question_text').html(window.currentQuestion.question)
     $('#question_plus').html(window.currentQuestion.plus)
 
 stopTimer = ->
@@ -84,5 +83,5 @@ playSound = (resource)->
     aud = window.audios[resource].shift()
     window.audios[resource].push(new Audio(window.RESOURCES.wav[resource]))
     if aud.readyState is 4
-      aud.play()
+      return aud.play()
 

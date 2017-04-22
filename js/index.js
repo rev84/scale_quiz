@@ -19,9 +19,10 @@ $().ready(function() {
   $('#start_game').on('click', function() {
     return startGame();
   });
-  return $('.alt').on('click', function() {
+  $('.alt').on('click', function() {
     return answer(Number($(this).data('answer')));
   });
+  return initAudio();
 });
 
 startGame = function() {
@@ -43,7 +44,6 @@ startQuestion = function() {
   var q;
   q = window.questions.pop();
   q.started = +(new Date());
-  q.fontSize = 0.8 * Utl.getFillFontSize($('#question_text'), q.question);
   window.currentQuestion = q;
   window.questionCount++;
   return startTimer(100);
@@ -55,10 +55,8 @@ answer = function(answerId) {
   }
   if (answerId === window.currentQuestion.answer) {
     playSound('correct');
-    alert('正解');
   } else {
     playSound('wrong');
-    alert('不正解');
   }
   return startQuestion();
 };
@@ -74,7 +72,7 @@ refresh = function() {
     $('#question_text').html('');
     return $('#question_plus').html('');
   } else {
-    $('#question_text').html(window.currentQuestion.question).css('font-size', '' + window.currentQuestion.fontSize + 'px');
+    $('#question_text').html(window.currentQuestion.question);
     return $('#question_plus').html(window.currentQuestion.plus);
   }
 };
@@ -114,29 +112,177 @@ initAudio = function() {
 };
 
 playSound = function(resource) {
-  var aud, results;
-  results = [];
+  var aud;
   while (window.audios[resource].length > 0) {
     aud = window.audios[resource].shift();
     window.audios[resource].push(new Audio(window.RESOURCES.wav[resource]));
     if (aud.readyState === 4) {
-      results.push(aud.play());
-    } else {
-      results.push(void 0);
+      return aud.play();
     }
   }
-  return results;
 };
 
 window.QUESTION_BASE = [
   {
     "answer": 3,
-    "plus": "test",
+    "plus": "",
+    "explain": "",
     "question": "1％ = ◯分の一"
   }, {
     "answer": 4,
-    "plus": "test2",
+    "plus": "",
+    "explain": "",
     "question": "1‰ = ◯分の一"
+  }, {
+    "answer": 4,
+    "plus": "1990年",
+    "explain": "1191件",
+    "question": "東証一部上場企業"
+  }, {
+    "answer": 4,
+    "plus": "",
+    "explain": "",
+    "question": "1kg = ◯g"
+  }, {
+    "answer": 4,
+    "plus": "2017年",
+    "explain": "3,093人",
+    "question": "東京大学　入学者"
+  }, {
+    "answer": 3,
+    "plus": "2016年",
+    "explain": "100万人",
+    "question": "東ティモール　人口　◯万人"
+  }, {
+    "answer": 2,
+    "plus": "日本　2017年",
+    "explain": "378,000 km²",
+    "question": "国土面積　◯万km²"
+  }, {
+    "answer": 4,
+    "plus": "",
+    "explain": "1,096km（山陽自動車道経由）",
+    "question": "東京⇔博多　◯km"
+  }, {
+    "answer": 4,
+    "plus": "日本　2016年",
+    "explain": "968人",
+    "question": "熱中症による死亡数"
+  }, {
+    "answer": 2,
+    "plus": "日本　2016年末",
+    "explain": "23人+1団体",
+    "question": "国民栄誉賞　受賞者"
+  }, {
+    "answer": 2,
+    "plus": "日本　2017年",
+    "explain": "47都道府県",
+    "question": "都道府県"
+  }, {
+    "answer": 3,
+    "plus": "日本　2017年3月",
+    "explain": "76万493人",
+    "question": "税理士　◯万人"
+  }, {
+    "answer": 3,
+    "plus": "日本　2014年",
+    "explain": "409万8284社",
+    "question": "企業　◯万社"
+  }, {
+    "answer": 4,
+    "plus": "日本　2015年",
+    "explain": "779校",
+    "question": "国立大学　◯校"
+  }, {
+    "answer": 3,
+    "plus": "2015年",
+    "explain": "223万2189人",
+    "question": "在日外国人　◯万人"
+  }, {
+    "answer": 1,
+    "plus": "日本　2015年",
+    "explain": "3万6415人",
+    "question": "弁護士　◯万人"
+  }, {
+    "answer": 2,
+    "plus": "日本　2015年",
+    "explain": "25兆1816億円",
+    "question": "外食産業の市場規模　◯兆円"
+  }, {
+    "answer": 4,
+    "plus": "世界合計　2016年7月",
+    "explain": "1052件",
+    "question": "世界遺産"
+  }, {
+    "answer": 3,
+    "plus": "2017年4月",
+    "explain": "99万2026件",
+    "question": ".jpドメインの数　◯万件"
+  }, {
+    "answer": 3,
+    "plus": "2016年度",
+    "explain": "325万3000人",
+    "question": "神戸ルミナリエ来場者数　◯万人"
+  }, {
+    "answer": 2,
+    "plus": "日本　2014年",
+    "explain": "31万1205人",
+    "question": "医師　◯万人"
+  }, {
+    "answer": 2,
+    "plus": "日本　2014年",
+    "explain": "10万3972人",
+    "question": "歯科医師　◯万人"
+  }, {
+    "answer": 2,
+    "plus": "日本　2014年",
+    "explain": "28万8151人",
+    "question": "薬剤師　◯万人"
+  }, {
+    "answer": 1,
+    "plus": "日本　2016年",
+    "explain": "2万1764人",
+    "question": "自殺者　◯万人"
+  }, {
+    "answer": 4,
+    "plus": "日本　2013年",
+    "explain": "820万戸",
+    "question": "空き家　◯万戸"
+  }, {
+    "answer": 3,
+    "plus": "日本　2015年",
+    "explain": "56万人",
+    "question": "ニート　◯万人"
+  }, {
+    "answer": 3,
+    "plus": "日本　2014年",
+    "explain": "244.9人",
+    "question": "人口10万人あたりの医師"
+  }, {
+    "answer": 3,
+    "plus": "日本　2015年",
+    "explain": "103万2791件",
+    "question": "刑事事件　◯万件"
+  }, {
+    "answer": 2,
+    "plus": "日本　2015年",
+    "explain": "9万4889件",
+    "question": "少年事件　◯万件"
+  }, {
+    "answer": 2,
+    "plus": "日本　2014年",
+    "explain": "40兆8071億円",
+    "question": "国民医療費　◯兆円"
+  }, {
+    "answer": 4,
+    "plus": "日本　2014年",
+    "explain": "3450軒",
+    "question": "銭湯"
+  }, {
+    "answer": 3,
+    "plus": "日本　2013年",
+    "explain": "307万2700世帯",
+    "question": "年収1000万円以上の世帯　◯万世帯"
   }
 ];
 
