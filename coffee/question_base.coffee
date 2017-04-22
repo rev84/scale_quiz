@@ -1,0 +1,1 @@
+window.QUESTION_BASE = [{"answer":3,"plus":"test","question":"1％ = ◯分の一"},{"answer":4,"plus":"test2","question":"1‰ = ◯分の一"}];
